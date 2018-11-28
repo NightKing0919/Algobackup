@@ -2,7 +2,7 @@ package Algorithms.UnionFind;
 
 public class QuickUnionUF {
 
-    //Trees can get tall and finding root is expensive.
+    //Trees can get tall and finding root is expensive.Need to use weighted union and path compression for keeping the tree flat.
     private int[] id;
 
     public QuickUnionUF(int N) {

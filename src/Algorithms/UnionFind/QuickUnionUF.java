@@ -1,6 +1,8 @@
 package Algorithms.UnionFind;
 
 public class QuickUnionUF {
+
+    //Trees can get tall and finding root is expensive.
     private int[] id;
 
     public QuickUnionUF(int N) {

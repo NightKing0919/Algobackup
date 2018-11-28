@@ -1,7 +1,7 @@
 package Algorithms.UnionFind;
 
 public class QuickFindUF {
-
+        // Maintaining flat tree is expensive as you iterate whole array to change the ID value.
     private int[] id;
 
     public QuickFindUF(int N) {

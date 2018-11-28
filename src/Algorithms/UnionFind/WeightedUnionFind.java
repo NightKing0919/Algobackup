@@ -2,6 +2,9 @@ package Algorithms.UnionFind;
 
 public class WeightedUnionFind {
 
+    //Smaller tree is put down the root of the bigger tree to make the tree as flat as possible.
+    //as a result, log(n) is the complexity of find operations and union.-->Height of th trees.
+
     private int[] id, sz;
 
     public WeightedUnionFind(int N) {

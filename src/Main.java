@@ -1,30 +1,29 @@
-import DP.StringDP;
-
 import java.util.Arrays;
 
 public class Main {
-    static int [][]dp;
+    static long[][] dp;
     public static void main(String[] args) {
-        int[]coins={2,3};
-        int sum=6883338;
-        dp=new int[sum+1][coins.length];
+        long[] coins = {2, 3};
+        int sum = 10;
+        dp = new long[sum + 1][coins.length];
         for(int i=0;i<dp.length;i++) Arrays.fill(dp[i],-1);
         System.out.println(coinChange(coins,sum));
 
     }
 
 
-    static int coinChange(int []coins,int N){
-        int ncoins=coins.length-1;
-        return coinChange(coins,ncoins,N);
+    static long coinChange(long[] c, long n) {
+        int ncoins = c.length - 1;
+        return coinChange(c, ncoins, n);
     }
-    static int coinChange(int[]coins,int m,int n){
+
+    private static long coinChange(long[] coins, int m, long n) {
         //System.out.println("m+\" \"+n = " + m+" "+n);
         if(n==0)return 1;
         if(n<0)return 0;
         if(m<0 && n>0)return 0;
-        if(dp[n][m]!=-1)return dp[n][m];
-        return dp[n][m]=coinChange(coins,m,n-coins[m])+coinChange(coins,m-1,n);
+        if (dp[(int) n][m] != -1) return (long) dp[(int) n][m];
+        return dp[(int) n][m] = (long) (coinChange(coins, m, n - coins[m]) + coinChange(coins, m - 1, n));
     }
 
 }

@@ -3,15 +3,51 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-
+        int[] x = {-1, 0};
+        System.out.println(maxSubArray(x));
     }
 
-    static void rotate(int[] nums, int k) {
-        int len = nums.length;
-        k = k % len;
-        for (int i = 0; i < k; i++) {
+    static int maxSubArray(int[] nums) {
+        int curmax = nums[0];
+        int max = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            if(nums[i]<=0){
+                curmax=nums[i];
+                max=Math.max(curmax,max);
+            }
+            else {
+                curmax+=nums[i];
+                max=Math.max(curmax,max);
+            }
+        }return max;
+    }
 
+    //  [7,8,9,0,1,2,3,4,5,6]
+    static int searchRotatedArray(int[] nums, int target) {
+        int lo = 0;
+        int hi = nums.length - 1;
+        int mid = -2;
+        while (lo <= hi) {
+            mid = (lo + hi) >>> 1;
+            if (nums[mid] == target) return mid;
+
+            //If left subarray sorted
+            if (nums[lo] <= nums[mid]) {
+                //if target in left subarray
+                if (nums[lo] <= target && nums[mid] >= target) {
+                    hi = mid - 1;
+                } else {
+                    lo = mid + 1;
+                }
+            }
+            //If Right array sorted
+            else {
+                if (nums[mid] <= target && nums[hi] >= target) {
+                    lo = mid + 1;
+                } else hi = mid - 1;
+            }
         }
+        return -1;
     }
 
     static int searchInsertPosition(int[] nums, int target) {

@@ -1,14 +1,54 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        int[] x = {3, 3};
-        for (int xx : twoSum(x, 6)) {
-            System.out.print(xx + " ");
+        int[] x = {-1, 0, 1, 2, -1, -4};
+        List<List<Integer>> res = threeSum(x);
+        for (List<Integer> a : res) {
+            for (int i = 0; i < 3; i++) {
+                System.out.print(a.get(i) + " ");
+            }
+            System.out.println();
         }
+    }
+
+    static List<List<Integer>> threeSum(int[] nums) {
+        Arrays.sort(nums);
+        int len = nums.length;
+        List<List<Integer>> result = new ArrayList<>();
+        TreeSet<Integer> set = new TreeSet<>();
+
+        dollar:
+        for (int i = 0; i < len - 1; i++) {
+            int l = i + 1;
+            int r = len - 1;
+            int x = nums[i];
+            while (l < r) {
+                int sum = x + nums[l] + nums[r];
+                if(set.contains(x) && set.contains(nums[l]) && set.contains(nums[r])){
+                    l++;r--;
+                    continue;
+                }
+                if (sum == 0) {
+                    set.add(x);
+                    set.add(nums[l]);
+                    set.add(nums[r]);
+                    List<Integer> temp = new ArrayList<>();
+                    temp.add(x);
+                    temp.add(nums[l]);
+                    temp.add(nums[r]);
+                    //if(!result.contains(temp))
+                    result.add(temp);
+
+                    temp = null;
+                    l++;
+                    r--;
+                } else if (sum > 0) {
+                    r--;
+                } else l++;
+            }
+        }
+        return result;
     }
 
     static int[] twoSum(int[] nums, int target) {

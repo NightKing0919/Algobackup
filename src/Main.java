@@ -2,14 +2,102 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        int[] x = {-1, 0, 1, 2, -1, -4};
-        List<List<Integer>> res = threeSum(x);
-        for (List<Integer> a : res) {
-            for (int i = 0; i < 3; i++) {
-                System.out.print(a.get(i) + " ");
-            }
-            System.out.println();
+        int[] x = {0,1,3};
+        System.out.println(missingNumberUsingSet(x));
+    }
+
+    static int missingNumberUsingXOR(int []nums){ //----FASTEST O(1) space and O(n) time
+        int x=nums.length;
+        for(int i=0;i<nums.length;i++){
+            x^=i^nums[i];
         }
+        return x;
+    }
+    static int missingNumberUsingSet(int[] nums) {
+        HashSet<Integer> set = new HashSet<>();
+        for (int x : nums) set.add(x);
+
+        for (int i = 0; i <= nums.length; i++) {
+            if (!set.contains(i)) return i;
+        }
+        return -1;
+    }
+
+    static int missingNumber(int[] nums) {
+        Arrays.sort(nums);
+        //System.out.println();
+        int lo = 0;
+        int hi = nums.length - 1;
+        int mid = 0;
+        while (lo <= hi) {
+            mid = (lo + hi) >>> 1;
+            int ele = nums[mid];
+            if (lo == hi && lo == 0 && nums[lo] == lo) {
+                return 1;
+            }
+            if (lo == hi && lo == nums.length - 1 && nums[lo] == lo) return lo + 1;
+            if (lo == hi && nums[lo] == lo) return lo + 1;
+            if (ele == mid) {
+                lo = mid + 1;
+            } else if (ele != mid && ele > mid) {
+                hi = mid - 1;
+            }
+            //else if(ele!=mid && ele)
+        }
+        return mid;
+    }
+
+    static List<Integer> findDuplicates(int[] nums) {
+        Arrays.sort(nums);
+        List<Integer> res = new ArrayList<>();
+        for (int i = 0; i < nums.length - 1; ) {
+            int m = nums[i] ^ nums[i + 1];
+            if (m == 0) {
+                res.add(nums[i]);
+                i += 2;
+            } else i++;
+        }
+        return res;
+    }
+
+    static int majorityElement(int[] nums) {
+        int len = nums.length;
+        HashMap<Integer, Integer> map = new HashMap<>();
+        int max = 0;
+        int ele = -1;
+        for (int x : nums) {
+            if (map.get(x) == null) {
+                map.put(x, 1);
+                if (max == 0) {
+                    max = 1;
+                    ele = x;
+                }
+            } else {
+                int num = map.get(x) + 1;
+                map.put(x, num);
+                if (num > max) {
+                    ele = x;
+                    max = num;
+                }
+            }
+        }
+        return ele;
+    }
+
+    static int[] intersection(int[] nums1, int[] nums2) {
+        //int len1 = nums1.length;
+        //int len2 = nums2.length;
+
+        HashSet<Integer> set1 = new HashSet<>(), set2 = new HashSet<>();
+        for (int x : nums1) set1.add(x);
+        int i = 0;
+        for (int x : nums2) {
+            if (set1.contains(x)) set2.add(x);
+        }
+        int[] res = new int[set2.size()];
+
+        for (int n : set2) res[i++] = n;
+        return res;
     }
 
     static List<List<Integer>> threeSum(int[] nums) {
@@ -25,8 +113,9 @@ public class Main {
             int x = nums[i];
             while (l < r) {
                 int sum = x + nums[l] + nums[r];
-                if(set.contains(x) && set.contains(nums[l]) && set.contains(nums[r])){
-                    l++;r--;
+                if (set.contains(x) && set.contains(nums[l]) && set.contains(nums[r])) {
+                    l++;
+                    r--;
                     continue;
                 }
                 if (sum == 0) {

@@ -2,17 +2,32 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        int[] x = {0,1,3};
-        System.out.println(missingNumberUsingSet(x));
+        int[] x = {1,2,0,1};
+        System.out.println(longestConsecutive(x));
     }
 
-    static int missingNumberUsingXOR(int []nums){ //----FASTEST O(1) space and O(n) time
-        int x=nums.length;
-        for(int i=0;i<nums.length;i++){
-            x^=i^nums[i];
+    static int longestConsecutive(int[] nums) {
+        Arrays.sort(nums);
+        if(nums.length==0)return 0;
+        int max=1;int cur=1;
+        for(int i=1;i<nums.length;i++){
+            if(nums[i]==nums[i-1]+1 || nums[i]==nums[i-1]){
+                cur++;max=Math.max(max,cur);
+                System.out.println("cur = " + cur);
+            }
+            else cur=1;
+        }
+        return max;
+    }
+
+    static int missingNumberUsingXOR(int[] nums) { //----FASTEST O(1) space and O(n) time
+        int x = nums.length;
+        for (int i = 0; i < nums.length; i++) {
+            x ^= i ^ nums[i];
         }
         return x;
     }
+
     static int missingNumberUsingSet(int[] nums) {
         HashSet<Integer> set = new HashSet<>();
         for (int x : nums) set.add(x);

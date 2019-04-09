@@ -2,20 +2,66 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        int[] x = {1,2,0,1};
-        System.out.println(longestConsecutive(x));
+        int[] x = {1,0,0,0};
+        int[] ret = plusOne(x);
+        for(int u:ret) System.out.print(u+" ");
+    }
+
+
+
+    static int[] plusOne(int[] digits) {
+        int len = digits.length;
+        int x = -1;
+        if (digits[len - 1] + 1 < 10) {
+            digits[len - 1]++;
+            return digits;
+        } else {
+            x = len - 1;
+            while (digits[x] + 1 > 9) {
+                if (x > 0) {
+                    digits[x] = 0;
+                    x--;
+                } else {
+                    int[] sec = new int[len + 1];
+                    for (int i = 2; i < sec.length; i++) {
+                        sec[i] = digits[i-1];
+                    }
+                    sec[0] = 1;
+                    sec[1] = 0;
+                    return sec;
+                }
+            }
+            digits[x]++;
+
+        }
+        return digits;
+    }
+
+    static boolean isValidSudoku(char[][] board) {
+        HashSet<String> set = new HashSet<>();
+
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[0].length; j++) {
+                char x = board[i][j];
+                if (x != '.')
+                    if (!set.add(x + " in " + i + " row") || !set.add(x + " in " + j + " column") || !set.add(x + " in " + (i / 3) + " " + (j / 3)))
+                        return false;
+            }
+        }
+        return true;
     }
 
     static int longestConsecutive(int[] nums) {
         Arrays.sort(nums);
-        if(nums.length==0)return 0;
-        int max=1;int cur=1;
-        for(int i=1;i<nums.length;i++){
-            if(nums[i]==nums[i-1]+1 || nums[i]==nums[i-1]){
-                cur++;max=Math.max(max,cur);
+        if (nums.length == 0) return 0;
+        int max = 1;
+        int cur = 1;
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] == nums[i - 1] + 1 || nums[i] == nums[i - 1]) {
+                cur++;
+                max = Math.max(max, cur);
                 System.out.println("cur = " + cur);
-            }
-            else cur=1;
+            } else cur = 1;
         }
         return max;
     }

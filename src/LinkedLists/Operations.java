@@ -3,15 +3,51 @@ package LinkedLists;
 public class Operations {
     public static void main(String[] args) {
         ListNode head = new ListNode(1);
-        head.next = new ListNode(4);
+        head.next = new ListNode(2);
         head.next.next = new ListNode(3);
-        head.next.next.next = new ListNode(2);
-        head.next.next.next.next = new ListNode(5);
-        head.next.next.next.next.next = new ListNode(2);
-        print(head);
-        partition(head, 3);
+        head.next.next.next = new ListNode(4);
+        //print(head);
+        //partition(head, 3);
+        print(swapPairs(head));
 
     }
+
+    static ListNode swapPairs(ListNode head) {
+        ListNode a = head;
+        ListNode b = head.next;
+        ListNode nab = b.next;
+        ListNode res = null;
+
+        b.next = null;
+        ListNode rev = reverse(a);
+        //print(rev);
+        res = rev;
+        print(res);
+        if (nab == null) return res;
+        b.next = nab;
+        a = b.next;
+        b = a.next;
+        nab = b.next;
+        if (nab == null) {
+            res.next = reverse(a);
+            return res;
+        }
+        while (nab != null) {
+
+            b.next = null;
+            print(a);
+            ListNode temp = reverse(a);
+            print(temp);
+            rev = rev.next;
+            rev.next = temp;
+            b.next = nab;
+            nab = b.next;
+            a = a.next.next;
+            b = b.next.next;
+        }
+        return res;
+    }
+
 
     static ListNode mergeTwoLists(ListNode l1, ListNode l2) {
         ListNode temp = null;

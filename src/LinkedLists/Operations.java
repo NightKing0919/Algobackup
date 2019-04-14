@@ -13,6 +13,36 @@ public class Operations {
 
     }
 
+    static ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        ListNode temp = null;
+        ListNode originalHead = null;
+        if (l1 == null) return l2;
+        if (l2 == null) return l1;
+        if (l1.val < l2.val) {
+            temp = new ListNode(l1.val);
+            l1 = l1.next;
+        } else {
+            temp = new ListNode(l2.val);
+            l2 = l2.next;
+        }
+        originalHead = temp;
+
+        while (l1 != null && l2 != null) {
+            if (l1.val < l2.val) {
+                temp.next = new ListNode(l1.val);
+                l1 = l1.next;
+            } else {
+                temp.next = new ListNode(l2.val);
+                l2 = l2.next;
+            }
+            temp = temp.next;
+        }
+        if (l1 != null) temp.next = l1;
+        else if (l2 != null) temp.next = l2;
+        return originalHead;
+
+    }
+
     static ListNode partition(ListNode head, int x) {
         ListNode temp = head;
         ListNode before = null, bhook = null;
@@ -49,7 +79,7 @@ public class Operations {
                 before = before.next;
             }
             before.next = ahook;
-        }else bhook=ahook;
+        } else bhook = ahook;
         //print(bhook);
         return bhook;
     }

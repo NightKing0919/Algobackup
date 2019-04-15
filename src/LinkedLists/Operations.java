@@ -3,14 +3,32 @@ package LinkedLists;
 public class Operations {
     public static void main(String[] args) {
         ListNode head = new ListNode(1);
-        head.next = new ListNode(2);
-        ListNode head2 = new ListNode(9);
-        head2.next = new ListNode(6);
-        head2.next.next = new ListNode(9);
-        //print(head);
-        //partition(head, 3);
-        print(addTwoNumbers(head, head2));
+        head.next = new ListNode(1);
+        head.next.next = new ListNode(2);
+        head.next.next.next = new ListNode(2);
+        head.next.next.next.next = new ListNode(3);
 
+        print(deleteDuplicates(head));
+
+    }
+
+    static ListNode deleteDuplicates(ListNode head) {
+        if (head == null) return null;
+        if (head.next == null) return head;
+        ListNode res = head, a = head, b = head.next;
+        int cur = -1;
+        while (b != null) {
+            cur = a.val;
+            if (b.val != cur) {
+                a.next = b;
+                b = b.next;
+                a = a.next;
+            } else {
+                b = b.next;
+            }
+        }
+        a.next = null;
+        return res;
     }
 
     static ListNode addTwoNumbers(ListNode l1, ListNode l2) {

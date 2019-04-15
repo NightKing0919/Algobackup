@@ -3,9 +3,11 @@ package LinkedLists;
 public class Operations {
     public static void main(String[] args) {
         ListNode head = new ListNode(1);
-        head.next = new ListNode(2);
+        /*head.next = new ListNode(2);
         head.next.next = new ListNode(3);
         head.next.next.next = new ListNode(4);
+        head.next.next.next.next = new ListNode(5);
+        head.next.next.next.next.next = new ListNode(6);*/
         //print(head);
         //partition(head, 3);
         print(swapPairs(head));
@@ -13,39 +15,28 @@ public class Operations {
     }
 
     static ListNode swapPairs(ListNode head) {
+        if (head == null) return null;
         ListNode a = head;
+        ListNode res = new ListNode(0);
+        ListNode dummy = res;
         ListNode b = head.next;
-        ListNode nab = b.next;
-        ListNode res = null;
-
-        b.next = null;
-        ListNode rev = reverse(a);
-        //print(rev);
-        res = rev;
-        print(res);
-        if (nab == null) return res;
-        b.next = nab;
-        a = b.next;
-        b = a.next;
-        nab = b.next;
-        if (nab == null) {
-            res.next = reverse(a);
-            return res;
-        }
-        while (nab != null) {
-
+        if (b == null) return a;
+        ListNode c = b.next;
+        while (a != null) {
             b.next = null;
-            print(a);
-            ListNode temp = reverse(a);
-            print(temp);
-            rev = rev.next;
-            rev.next = temp;
-            b.next = nab;
-            nab = b.next;
-            a = a.next.next;
-            b = b.next.next;
+            ListNode t = reverse(a);
+            res.next = t;
+            res = res.next.next;
+            a = c;
+            if (a == null) break;
+            b = a.next;
+            if (b == null) {
+                res.next = a;
+                break;
+            }
+            c = b.next;
         }
-        return res;
+        return dummy.next;
     }
 
 

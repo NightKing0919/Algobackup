@@ -1,15 +1,58 @@
 package LinkedLists;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
+
 public class Operations {
     public static void main(String[] args) {
         ListNode head = new ListNode(1);
-        head.next = new ListNode(1);
-        head.next.next = new ListNode(2);
-        head.next.next.next = new ListNode(2);
-        head.next.next.next.next = new ListNode(3);
+        head.next = new ListNode(2);
+        head.next.next = new ListNode(3);
+        head.next.next.next = new ListNode(3);
+        head.next.next.next.next = new ListNode(2);
+        head.next.next.next.next.next = new ListNode(1);
+        System.out.println(isPalindrome(head));
+    }
 
-        print(deleteDuplicates(head));
+    static boolean isPalindrome(ListNode head) { // VERY EFFICIENT SOLUTION ... previous was 7 ms and this is 1ms. Find Mid and reverse one part,check both.
+        ListNode slow = head, fast = head.next;
+        while (fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+        ListNode mid = slow;
+        ListNode right = mid.next;
+        mid.next = null;
+        right = reverse(right);
 
+        while (right != null && head != null) {
+            if (right.val != head.val)
+                return false;
+            right = right.next;
+            head = head.next;
+        }
+        return true;
+    }
+
+    static boolean isPalindrome2(ListNode head) {
+        Stack<Integer> stk = new Stack<>();
+        List<Integer> list = new ArrayList<>();
+        ListNode temp = head;
+        while (temp != null) {
+            stk.push(new Integer(temp.val));
+            list.add(new Integer(temp.val));
+            temp = temp.next;
+        }
+        System.out.println("stk = " + stk);
+        System.out.println("list = " + list);
+        for (int i = 0; i < (list.size() / 2); i++) {
+            int x1 = stk.pop();
+            int x2 = list.get(i);
+            if (x1 == x2) continue;
+            else return false;
+        }
+        return true;
     }
 
     static ListNode deleteDuplicates(ListNode head) {

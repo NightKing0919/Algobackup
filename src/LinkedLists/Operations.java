@@ -2,19 +2,55 @@ package LinkedLists;
 
 public class Operations {
     public static void main(String[] args) {
-        ListNode head = new ListNode(1);
-        /*head.next = new ListNode(2);
-        head.next.next = new ListNode(3);
-        head.next.next.next = new ListNode(4);
-        head.next.next.next.next = new ListNode(5);
-        head.next.next.next.next.next = new ListNode(6);*/
+        ListNode head = new ListNode(1);head.next=new ListNode(2);
+        ListNode head2 = new ListNode(9);
+        head2.next = new ListNode(6);
+        head2.next.next = new ListNode(9);
         //print(head);
         //partition(head, 3);
-        print(swapPairs(head));
+        print(addTwoNumbers(head, head2));
+
+    }
+
+    static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode temp = null;
+        ListNode res = new ListNode(0);
+        temp = res;
+        int carry = 0;
+        int sum = 0;
+        while (l1 != null || l2 != null || carry != 0) {
+            if (l1 != null) {
+                carry += l1.val;l1=l1.next;
+            }
+            if (l2 != null) {
+                carry += l2.val;
+                l2=l2.next;
+            }
+            sum=carry%10;
+            if(carry>9)carry=1;
+            else carry=0;
+            temp.next=new ListNode(sum);temp=temp.next;
+
+        }
+        return res.next;
 
     }
 
     static ListNode swapPairs(ListNode head) {
+        return swapHelper(head);
+    }
+
+    static ListNode swapHelper(ListNode head) {
+        ListNode node = head;
+        if (node == null) return null;
+        if (node.next == null) return node;
+        ListNode temp = node.next;
+        node.next = swapHelper(node.next.next);
+        temp.next = node;
+        return temp;
+    }
+
+    static ListNode swapPairs2(ListNode head) {
         if (head == null) return null;
         ListNode a = head;
         ListNode res = new ListNode(0);

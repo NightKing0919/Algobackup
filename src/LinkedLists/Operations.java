@@ -2,7 +2,8 @@ package LinkedLists;
 
 public class Operations {
     public static void main(String[] args) {
-        ListNode head = new ListNode(1);head.next=new ListNode(2);
+        ListNode head = new ListNode(1);
+        head.next = new ListNode(2);
         ListNode head2 = new ListNode(9);
         head2.next = new ListNode(6);
         head2.next.next = new ListNode(9);
@@ -20,16 +21,18 @@ public class Operations {
         int sum = 0;
         while (l1 != null || l2 != null || carry != 0) {
             if (l1 != null) {
-                carry += l1.val;l1=l1.next;
+                carry += l1.val;
+                l1 = l1.next;
             }
             if (l2 != null) {
                 carry += l2.val;
-                l2=l2.next;
+                l2 = l2.next;
             }
-            sum=carry%10;
-            if(carry>9)carry=1;
-            else carry=0;
-            temp.next=new ListNode(sum);temp=temp.next;
+            sum = carry % 10;
+            if (carry > 9) carry = 1;
+            else carry = 0;
+            temp.next = new ListNode(sum);
+            temp = temp.next;
 
         }
         return res.next;

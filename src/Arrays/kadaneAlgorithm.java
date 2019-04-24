@@ -1,5 +1,7 @@
 package Arrays;
 
+import java.util.HashMap;
+
 public class kadaneAlgorithm {
 
     public static int maxSumInArray(int[] arr) {
@@ -13,5 +15,10 @@ public class kadaneAlgorithm {
             max = Math.max(temp, max);
         }
         return max;
+    }
+
+    public static void main(String[] args) {
+        HashMap<Integer,Integer>m=new HashMap<>();
+        System.out.println(m.get(1));
     }
 }

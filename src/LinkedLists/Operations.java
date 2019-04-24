@@ -7,12 +7,35 @@ import java.util.Stack;
 public class Operations {
     public static void main(String[] args) {
         ListNode head = new ListNode(1);
-        head.next = new ListNode(2);
+        /*head.next = new ListNode(2);
         head.next.next = new ListNode(3);
-        head.next.next.next = new ListNode(3);
-        head.next.next.next.next = new ListNode(2);
-        head.next.next.next.next.next = new ListNode(1);
-        System.out.println(isPalindrome(head));
+        head.next.next.next = new ListNode(5);
+        head.next.next.next.next = new ListNode(6);
+        head.next.next.next.next.next = new ListNode(4);
+        head.next.next.next.next.next.next=new ListNode(7);*/
+        print(oddEvenList(head));
+    }
+
+    static ListNode oddEvenList(ListNode head) {
+        if(head==null)return null;
+        ListNode a = head;
+        ListNode rhook = head.next;
+        ListNode b = rhook;
+        ListNode temp = a;
+
+        while (a.next != null && b != null) {
+            System.out.println("a+\" \"+b = " + a + " " + b);
+            if (a.next.next == null) break;
+            
+            a.next = b.next;
+            a = a.next;
+            b.next = a.next;
+            b = b.next;
+            System.out.println("a+\" \"+b = " + a + " " + b);
+        }
+        a.next=rhook;
+        //print(temp);
+        return temp;
     }
 
     static boolean isPalindrome(ListNode head) { // VERY EFFICIENT SOLUTION ... previous was 7 ms and this is 1ms. Find Mid and reverse one part,check both.
@@ -323,5 +346,10 @@ class ListNode {
     public ListNode(int data) {
         this.val = data;
         next = null;
+    }
+
+    @Override
+    public String toString() {
+        return "" + val;
     }
 }

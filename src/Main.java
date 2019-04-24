@@ -2,11 +2,8 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        int[] x = {1,0,0,0};
-        int[] ret = plusOne(x);
-        for(int u:ret) System.out.print(u+" ");
-    }
 
+    }
 
 
     static int[] plusOne(int[] digits) {
@@ -24,7 +21,7 @@ public class Main {
                 } else {
                     int[] sec = new int[len + 1];
                     for (int i = 2; i < sec.length; i++) {
-                        sec[i] = digits[i-1];
+                        sec[i] = digits[i - 1];
                     }
                     sec[0] = 1;
                     sec[1] = 0;

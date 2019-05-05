@@ -7,35 +7,13 @@ import java.util.Stack;
 public class Operations {
     public static void main(String[] args) {
         ListNode head = new ListNode(1);
-        /*head.next = new ListNode(2);
+
+        head.next = new ListNode(2);
         head.next.next = new ListNode(3);
-        head.next.next.next = new ListNode(5);
-        head.next.next.next.next = new ListNode(6);
-        head.next.next.next.next.next = new ListNode(4);
-        head.next.next.next.next.next.next=new ListNode(7);*/
-        print(oddEvenList(head));
-    }
-
-    static ListNode oddEvenList(ListNode head) {
-        if(head==null)return null;
-        ListNode a = head;
-        ListNode rhook = head.next;
-        ListNode b = rhook;
-        ListNode temp = a;
-
-        while (a.next != null && b != null) {
-            System.out.println("a+\" \"+b = " + a + " " + b);
-            if (a.next.next == null) break;
-            
-            a.next = b.next;
-            a = a.next;
-            b.next = a.next;
-            b = b.next;
-            System.out.println("a+\" \"+b = " + a + " " + b);
-        }
-        a.next=rhook;
-        //print(temp);
-        return temp;
+        head.next.next.next = new ListNode(3);
+        head.next.next.next.next = new ListNode(2);
+        head.next.next.next.next.next = new ListNode(1);
+        print(ins(head, 1, 2));
     }
 
     static boolean isPalindrome(ListNode head) { // VERY EFFICIENT SOLUTION ... previous was 7 ms and this is 1ms. Find Mid and reverse one part,check both.
@@ -162,6 +140,21 @@ public class Operations {
         return dummy.next;
     }
 
+    static ListNode ins(ListNode head, int data, int position) {
+        if (position == 1) {
+            ListNode res = new ListNode(data);
+            res.next = head;
+            return res;
+        }
+        ListNode res = head;//res=res.next;
+        while (res != null && position-- != 1) {
+            res = res.next;
+        }
+        ListNode temp = res.next;
+        res.next = new ListNode(data);
+        res.next.next = temp;
+        return head;
+    }
 
     static ListNode mergeTwoLists(ListNode l1, ListNode l2) {
         ListNode temp = null;
@@ -346,10 +339,5 @@ class ListNode {
     public ListNode(int data) {
         this.val = data;
         next = null;
-    }
-
-    @Override
-    public String toString() {
-        return "" + val;
     }
 }

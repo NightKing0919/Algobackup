@@ -25,6 +25,21 @@ public class LIS {
         return max;
     }
 
+   /* static int lis2(int[] nums) {
+        if (nums.length == 0) return 0;
+        int[] dp = new int[nums.length];
+        dp[0] = 1;
+        int max = 1;
+        for (int i = 1; i < nums.length; i++) {
+            int temp = 0;
+            for (int j = 0; j < i; j++) {
+                if(nums[j]<nums[i]){
+                    temp=Math.max(dp[j],temp);
+                }
+            }
+        }
+    }*/
+
 
 /*  Recursive exponential solution
     static int LIS(int[] nums) {
@@ -42,7 +57,7 @@ public class LIS {
     }
 */
     //Memoized Recursion--> O(nn^2) space and time
-    /*static int LIS(int[] nums) {
+  /*  static int LIS(int[] nums) {
         int[][] dp = new int[nums.length + 1][nums.length];
         for (int[] x : dp) Arrays.fill(x, -1);
         return LISHelper(nums, -1, 0, dp);
@@ -59,7 +74,6 @@ public class LIS {
         }
         int not = LISHelper(nums, prev, pos + 1, dp);
         return dp[prev + 1][pos] = Math.max(not, k);
-    }
-    */
+    }*/
 
 }

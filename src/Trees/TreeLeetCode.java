@@ -188,13 +188,6 @@ public class TreeLeetCode {
         Queue<TreeNode> q = new LinkedList<>();
         List<List<Integer>> res = new ArrayList<>();
         if (root == null) return res;
-
-        String x="xx";
-        StringBuffer sb=new StringBuffer(x);
-        sb.append('x');
-        String xx=sb.toString();
-        System.out.println(x==xx);
-
         ((LinkedList<TreeNode>) q).add(root);
         while (!q.isEmpty()) {
             int lev = q.size();

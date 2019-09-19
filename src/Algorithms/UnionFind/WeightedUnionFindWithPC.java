@@ -24,6 +24,11 @@ public class WeightedUnionFindWithPC {
     public void union(int p, int q) {
         int rootp = root(p);
         int rootq = root(q);
+        if (p == 7 && q == 10) {
+            print();
+            System.out.println("rootp+\" \"+rootq = " + rootp + " " + rootq);
+        }
+        
         if (rootp == rootq) return;
         if (sz[rootp] < sz[rootq]) {
             id[rootp] = rootq;
